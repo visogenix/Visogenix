@@ -1,54 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visogenix - AI App</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>ClipGenie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --gold: #FFD700;
+      --teal: #00f7ff;
+      --bg: #000000;
+      --glow: 0 0 12px var(--teal);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'DM Sans', sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: white;
+      overflow: hidden;
+    }
+    .splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; justify-content: center; align-items: center;
+      background: #000;
+      z-index: 9999;
+      animation: splashFade 3s ease forwards;
+    }
+    .splash h1 {
+      font-size: 3em;
+      color: var(--gold);
+      text-shadow: var(--glow);
+      transform: scale(0.5);
+      animation: scaleUp 1.5s ease forwards;
+    }
+    @keyframes scaleUp {
+      to { transform: scale(1.2); }
+    }
+    @keyframes splashFade {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+
+    .app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: none;
+    }
+
+    .pages.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      background: #111;
+      box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 14px;
+      flex: 1;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    nav button.active {
+      color: var(--teal);
+      text-shadow: var(--glow);
+    }
+
+    nav button.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      height: 3px;
+      background: var(--teal);
+      border-radius: 2px;
+      box-shadow: var(--glow);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--gold);
+    }
+
+    .card {
+      background: #111;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px 0;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    }
+
+    .card:hover {
+      box-shadow: 0 0 15px rgba(0,255,255,0.6);
+    }
+  </style>
 </head>
-<body class="bg-black text-white font-sans">
+<body>
+  <div class="splash">
+    <h1>ClipGenie</h1>
+  </div>
 
-  <!-- Header -->
-  <header class="p-4 flex justify-between items-center border-b border-gray-800">
-    <h1 class="text-2xl font-bold text-purple-500">Visogenix</h1>
-    <nav>
-      <ul class="flex gap-4 text-sm">
-        <li><a href="#features" class="hover:text-purple-400">Features</a></li>
-        <li><a href="#pricing" class="hover:text-purple-400">Pricing</a></li>
-        <li><a href="#contact" class="hover:text-purple-400">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="text-center py-20 px-6">
-    <h2 class="text-4xl md:text-6xl font-extrabold mb-4 text-purple-400">Create AI Videos in Seconds</h2>
-    <p class="text-gray-300 max-w-xl mx-auto mb-8">Visogenix converts your text or voice into stunning 3D animation videos using AI. No editing skills required.</p>
-    <a href="#start" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full font-semibold text-white transition">Get Started Free</a>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="py-16 px-6 bg-gray-900">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-      <div>
-        <h3 class="text-xl font-bold mb-2">Text to Video</h3>
-        <p class="text-gray-400">Type your script, and our AI turns it into 3D video instantly.</p>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold mb-2">Voice to Video</h3>
-        <p class="text-gray-400">Record your voice and let AI animate it beautifully.</p>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold mb-2">Export in HD</h3>
-        <p class="text-gray-400">Download 720p for free, or go 1080p with premium plans.</p>
-      </div>
+  <div class="app">
+    <div class="pages active" id="home">
+      <h2>Trending Clips</h2>
+      <div class="card">🔥 3D AI Generated Dance Clip</div>
+      <div class="card">🚀 Sci-fi Space Scene Prompt</div>
     </div>
-  </section>
 
-  <!-- Footer -->
-  <footer class="text-center py-6 text-gray-500 text-sm border-t border-gray-800">
-    &copy; 2025 Visogenix. All rights reserved.
-  </footer>
+    <div class="pages" id="studio">
+      <h2>Scene Generator</h2>
+      <div class="card">🎙️ Input Voice or Text Prompt</div>
+      <div class="card">🎞️ Select Background & Style</div>
+    </div>
 
+    <div class="pages" id="projects">
+      <h2>Saved Projects</h2>
+      <div class="card">📁 Alien Invasion Clip</div>
+      <div class="card">📁 Nature Walk with Glow FX</div>
+    </div>
+
+    <div class="pages" id="inspire">
+      <h2>Templates & Ideas</h2>
+      <div class="card">✨ Anime Style Girl Jumping</div>
+      <div class="card">💡 Crowd Dancing in Disco</div>
+    </div>
+
+    <div class="pages" id="me">
+      <h2>My Profile</h2>
+      <div class="card">👤 Username: Dev</div>
+      <div class="card">💼 Plan: Free (Upgrade Soon)</div>
+    </div>
+
+    <nav>
+      <button class="tab active" data-target="home">Home</button>
+      <button class="tab" data-target="studio">Studio</button>
+      <button class="tab" data-target="projects">Projects</button>
+      <button class="tab" data-target="inspire">Inspire</button>
+      <button class="tab" data-target="me">Me</button>
+    </nav>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const pages = document.querySelectorAll(".pages");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        pages.forEach(p => p.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.target).classList.add("active");
+      });
+    });
+
+    // Splash screen auto-hide
+    setTimeout(() => {
+      document.querySelector(".splash").style.display = "none";
+      document.body.style.overflow = "auto";
+    }, 3000);
+  </script>
 </body>
 </html>
